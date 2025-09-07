@@ -2,7 +2,7 @@
 service:
   type: ClusterIP
   port: 80
-replicas: 1
+replicas: 2
 persistence:
    type: pvc
    enabled: false
