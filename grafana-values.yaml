@@ -1,0 +1,15 @@
+
+service:
+  type: ClusterIP
+  port: 80
+replicas: 1
+persistence:
+   type: pvc
+   enabled: false
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 120Mi
