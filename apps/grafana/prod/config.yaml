@@ -1,6 +1,6 @@
 app:
-  project: prod
+  project: default
   namespace: monitoring
-  cluster: prod
+  cluster: in-cluster
   name: grafana
   env: prod
