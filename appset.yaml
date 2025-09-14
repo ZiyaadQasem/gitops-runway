@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: https://github.com/ZiyaadQasem/gitops-runway.git
+        revision: HEAD
+        files:
+          - path: apps/*/*/config.yaml     # each app/env has a config.yaml
+  template:
+    metadata:
+      name: '{{ .app.name }}-{{ .app.env }}'   # e.g., grafana-prod
+      labels:
+        app: '{{ .app.name }}'
+        env: '{{ .app.env }}'
+    spec:
+      project: '{{ .app.project }}'
+      source:
+        repoURL: https://github.com/ZiyaadQasem/gitops-runway.git
+        targetRevision: main
+        path: 'apps/{{ .app.name }}/{{ .app.env }}'
+        helm:
+          releaseName: '{{ .app.name }}-{{ .app.env }}'
+          valueFiles:
+            - 'apps/{{ .app.name }}/{{ .app.env }}/values.yaml'
+          ignoreMissingValueFiles: true
+      destination:
+        name: '{{ .app.cluster  }}'
+        namespace: '{{ .app.namespace }}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

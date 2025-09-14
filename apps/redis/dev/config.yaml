@@ -1,0 +1,6 @@
+app:
+  project: dev
+  namespace: redis-dev
+  cluster: dev
+  name: redis
+  env: dev

@@ -1,0 +1,6 @@
+app:
+  project: dev
+  namespace: monitoring-dev
+  cluster: in-cluster
+  name: grafana
+  env: dev

@@ -1,0 +1,6 @@
+app:
+  project: prod
+  namespace: monitoring
+  cluster: prod
+  name: grafana
+  env: prod
